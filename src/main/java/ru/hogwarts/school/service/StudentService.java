@@ -1,59 +1,54 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
 
-    private final Map<Long, Student> students = new HashMap<>();
-    private long nextId = 1;
+    private final StudentRepository studentRepository;
+
+    @Autowired
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
     public Collection<Student> getAll() {
-        return List.copyOf(students.values());
+        return studentRepository.findAll();
     }
 
     public Student getById(Long id) {
-        Student student = students.get(id);
-
-        if (student == null) {
-            throw new NotFoundException("Student with " + id + " id not found");
-        }
-
-        return student;
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Student with " + id + " id not found"));
     }
 
     public Student create(Student student) {
-        long id = nextId++;
-        student.setId(id);
-        students.put(id, student);
-        return student;
+        return studentRepository.save(student);
     }
 
     public Student update(Long id, Student student) {
-        if (!students.containsKey(id)) {
+        if (!studentRepository.existsById(id)) {
             throw new NotFoundException("Student with " + id + " id not found");
         }
         student.setId(id);
-        students.put(id, student);
-        return student;
+        return studentRepository.save(student);
     }
 
     public Student delete(Long id) {
-        Student removed = students.remove(id);
+        Student removed = getById(id);
         if (removed == null) {
             throw new NotFoundException("Student with " + id + " id not found");
         }
+        studentRepository.delete(removed);
         return removed;
     }
 
     public Collection<Student> getByAge(int age) {
-        return students.values().stream()
-                .filter(student -> student.getAge() == age)
-                .collect(Collectors.toList());
+        return studentRepository.findAllByAge(age);
     }
 }
