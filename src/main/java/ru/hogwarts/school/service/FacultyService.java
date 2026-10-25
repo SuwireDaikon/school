@@ -55,7 +55,7 @@ public class FacultyService {
     }
 
     public Collection<Faculty> getByNameOrColorIgnoreCaseBoth(String request) {
-        return facultyRepository.findAllByNameOrColorAllIgnoreCase(request, request);
+        return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(request, request);
     }
 
     @Transactional

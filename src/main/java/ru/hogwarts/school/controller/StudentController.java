@@ -41,13 +41,13 @@ public class StudentController {
         return studentService.delete(id);
     }
 
-    @GetMapping("/age/{age}")
-    public Collection<Student> getByAge(@PathVariable int age) {
+    @GetMapping("/age")
+    public Collection<Student> getByAge(@RequestParam int age) {
         return studentService.getByAge(age);
     }
 
-    @GetMapping("/age/{min}/{max}")
-    public Collection<Student> getByAgeBetween(@PathVariable int min, @PathVariable int max) {
+    @GetMapping("/age/between")
+    public Collection<Student> getByAgeBetween(@RequestParam int min, @RequestParam int max) {
         return studentService.getByAgeBetween(min, max);
     }
 
