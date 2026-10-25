@@ -1,6 +1,7 @@
 package ru.hogwarts.school.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -40,8 +41,19 @@ public class StudentController {
         return studentService.delete(id);
     }
 
-    @GetMapping("/age/{age}")
-    public Collection<Student> getByAge(@PathVariable int age) {
+    @GetMapping("/age")
+    public Collection<Student> getByAge(@RequestParam int age) {
         return studentService.getByAge(age);
     }
+
+    @GetMapping("/age/between")
+    public Collection<Student> getByAgeBetween(@RequestParam int min, @RequestParam int max) {
+        return studentService.getByAgeBetween(min, max);
+    }
+
+    @GetMapping("/{id}/faculty")
+    public Faculty getFaculty(@PathVariable Long id) {
+        return studentService.getFaculty(id);
+    }
 }
+//(Not enough minerals.)x3 You must construct additional pylons! <Nyon>
