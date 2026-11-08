@@ -16,6 +16,18 @@ public class Avatar {
     @Lob
     private byte[] data;
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public Avatar() {}
 
     public Avatar(Long id, String filePath, String mediaType, byte[] data) {
