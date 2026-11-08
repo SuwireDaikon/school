@@ -66,5 +66,18 @@ public class StudentService {
         return faculty;
     }
 
+    public long getStudentsCount() {
+        return studentRepository.countAllStudents();
+    }
+
+    public double getAverageAge() {
+        Double averageAge = studentRepository.findAverageAge();
+        return averageAge == null ? 0.0 : averageAge;
+    }
+
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.findLastFiveStudents();
+    }
+
 }
 //This toaster is... broken.

@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -54,6 +55,20 @@ public class StudentController {
     @GetMapping("/{id}/faculty")
     public Faculty getFaculty(@PathVariable Long id) {
         return studentService.getFaculty(id);
+    }
+
+    @GetMapping("/count")
+    public long getStudentsCount() {
+        return studentService.getStudentsCount();
+    }
+
+    @GetMapping("/average_age")
+    public double getAverageAge() {
+        return studentService.getAverageAge();
+    }
+    @GetMapping("/last_five")
+    public List<Student> getLastFiveStudents() {
+        return studentService.getLastFiveStudents();
     }
 }
 //(Not enough minerals.)x3 You must construct additional pylons! <Nyon>
