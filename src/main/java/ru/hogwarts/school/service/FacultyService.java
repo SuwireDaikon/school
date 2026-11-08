@@ -1,9 +1,11 @@
 package ru.hogwarts.school.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.*;
@@ -51,4 +53,14 @@ public class FacultyService {
     public Collection<Faculty> getByColor(String color) {
         return facultyRepository.findAllByColorIgnoreCase(color);
     }
+
+    public Collection<Faculty> getByNameOrColorIgnoreCaseBoth(String request) {
+        return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(request, request);
+    }
+
+    @Transactional
+    public Collection<Student> getStudents(Long id) {
+        return getById(id).getStudents();
+    }
+
 }
