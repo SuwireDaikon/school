@@ -70,5 +70,11 @@ public class StudentController {
     public List<Student> getLastFiveStudents() {
         return studentService.getLastFiveStudents();
     }
+
+    @GetMapping("/student_starting_with_a")
+    public List<String> getStudentNameStartingWithA() { return studentService.getStudentNameStartingWithA(); }
+
+    @GetMapping("/average_age_all")
+    public double getAverageAgeAll() { return studentService.getAverageAgeAll(); }
 }
 //(Not enough minerals.)x3 You must construct additional pylons! <Nyon>

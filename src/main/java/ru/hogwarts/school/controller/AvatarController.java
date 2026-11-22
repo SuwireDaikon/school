@@ -21,4 +21,9 @@ public class AvatarController {
     public Page<Avatar> getAllAvatars(@RequestParam int page, @RequestParam int size) {
         return avatarService.getAllAvatars(page, size);
     }
+
+    @GetMapping("/sum")
+    public int getSum() {
+        return avatarService.calculate();
+    }
 }

@@ -79,4 +79,12 @@ public class FacultyService {
         return getById(id).getStudents();
     }
 
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for get the longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .filter(Objects::nonNull)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
+    }
 }
